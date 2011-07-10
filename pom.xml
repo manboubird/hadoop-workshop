@@ -19,6 +19,7 @@
     <plugin>
       <groupId>org.apache.maven.plugins</groupId>
       <artifactId>maven-jar-plugin</artifactId>
+    	<version>2.7</version>
       <configuration>
         <archive>
           <manifest>
@@ -64,14 +65,6 @@
     </dependency>
     <dependency>
     	<groupId>org.apache.hadoop</groupId>
-    	<artifactId>hadoop-core</artifactId>
-    	<version>0.20.2-cdh3u0</version>
-    	<type>jar</type>
-    	<classifier>sources</classifier>
-    	<scope>provided</scope>
-    </dependency>
-    <dependency>
-    	<groupId>org.apache.hadoop</groupId>
     	<artifactId>hadoop-tools</artifactId>
     	<version>0.20.2-cdh3u0</version>
     	<type>jar</type>
@@ -82,14 +75,6 @@
     	<artifactId>hadoop-mrunit</artifactId>
     	<version>0.20.2-cdh3u0</version>
     	<type>jar</type>
-    	<scope>test</scope>
-    </dependency>
-    <dependency>
-    	<groupId>org.apache.hadoop</groupId>
-    	<artifactId>hadoop-mrunit</artifactId>
-    	<version>0.20.2-cdh3u0</version>
-    	<type>jar</type>
-    	<classifier>sources</classifier>
     	<scope>test</scope>
     </dependency>
     <dependency>
@@ -114,26 +99,10 @@
     	<scope>test</scope>
     </dependency>
     <dependency>
-    	<groupId>com.google.guava</groupId>
-    	<artifactId>guava</artifactId>
-    	<version>r09</version>
-    	<type>jar</type>
-    	<classifier>sources</classifier>
-    	<scope>test</scope>
-    </dependency>
-    <dependency>
     	<groupId>commons-io</groupId>
     	<artifactId>commons-io</artifactId>
     	<version>2.0.1</version>
     	<type>jar</type>
-    	<scope>test</scope>
-    </dependency>
-    <dependency>
-    	<groupId>commons-io</groupId>
-    	<artifactId>commons-io</artifactId>
-    	<version>2.0.1</version>
-    	<type>jar</type>
-    	<classifier>sources</classifier>
     	<scope>test</scope>
     </dependency>
   </dependencies>
