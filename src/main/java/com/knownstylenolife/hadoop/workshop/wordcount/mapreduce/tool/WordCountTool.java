@@ -19,7 +19,6 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.Tool;
 
-import com.knownstylenolife.hadoop.workshop.common.consts.ConfigurationConst;
 import com.knownstylenolife.hadoop.workshop.common.util.HadoopLoggerUtil;
 
 
@@ -31,8 +30,8 @@ public class WordCountTool extends Configured implements Tool {
 		
 		Log MAPLOG = LogFactory.getLog(WordCountMapper.class);
 
-		private final String REGEX = "(\\w+)([^\\w]|$)";
-		private Pattern pattern = Pattern.compile(REGEX);
+		public final String WORDS_REGEX = "(\\w+)([^\\w]|$)";
+		private Pattern pattern = Pattern.compile(WORDS_REGEX);
 
 		private final Text outputKeyText = new Text();
 		private final LongWritable outputValueLongWritable = new LongWritable(1);
@@ -101,16 +100,12 @@ public class WordCountTool extends Configured implements Tool {
 		
 		Configuration conf = new Configuration();
 		
-		if(args.length >= 3) {
-			String level = args[2];
-			LOG.info("Set log level to " + level);
-			conf.set(ConfigurationConst.LOG_LEVEL, level);
-		}
+		HadoopLoggerUtil.setLastArgAsLogLevel(args, conf);
 		
 		Job job = new Job(conf, "Word Count");
 		job.setJarByClass(getClass());
 		
-		LOG.info(args[0] + ", " + args[1]);
+		LOG.info("input = " + args[0] + ", output = " + args[1]);
         FileInputFormat.setInputPaths(job, new Path(args[0]));
         FileOutputFormat.setOutputPath(job, new Path(args[1]));
 

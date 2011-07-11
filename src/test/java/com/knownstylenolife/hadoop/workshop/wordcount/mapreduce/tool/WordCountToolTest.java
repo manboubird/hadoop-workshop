@@ -2,6 +2,7 @@ package com.knownstylenolife.hadoop.workshop.wordcount.mapreduce.tool;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -38,6 +39,11 @@ public class WordCountToolTest extends TestCase {
 	
 	private MapReduceDriver<LongWritable, Text, Text, LongWritable, Text, LongWritable> mapreduceDriver;
 	
+	private String inputFilePath;
+	
+	private static final String WORD_REGEX = "^\\w+$";
+	private Pattern pattern = Pattern.compile(WORD_REGEX);
+
 	@Before
 	public void setUp() {
 		mapper = new WordCountMapper();
@@ -47,6 +53,9 @@ public class WordCountToolTest extends TestCase {
 		reducerDriver = new ReduceDriver<Text, LongWritable, Text, LongWritable>(reducer);
 	
 		mapreduceDriver = new MapReduceDriver<LongWritable, Text, Text, LongWritable, Text, LongWritable>(mapper, reducer);
+	
+		URL url = getClass().getResource("WordCountToolTest_hadoop-wikipedia.txt");
+		inputFilePath = url.getFile();
 	}
 	
 	@Test
@@ -66,8 +75,6 @@ public class WordCountToolTest extends TestCase {
 			.runTest();
 	}
 	
-	private String inputFilePath = "src/test/resources/com/knownstylenolife/hadoop/workshop/wordcount/WordCountToolMain/hadoop-wikipedia.txt";
-		
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testRun() throws IOException {
@@ -104,8 +111,6 @@ public class WordCountToolTest extends TestCase {
 	    }
 	}
 	
-	private Pattern pattern = Pattern.compile("^\\w+$");
-
 	private void assertReduceOutputKey(Text key) {
 		Matcher matcher = pattern.matcher(key.toString());
 		boolean isMatched = matcher.matches();
