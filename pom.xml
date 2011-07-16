@@ -63,8 +63,8 @@
 					<repositoryName>lib</repositoryName>
 					<programs>
 						<program>
-							<mainClass>com.knownstylenolife.hadoop.workshop.wordcount.WordCountToolMain</mainClass>
-							<name>wordcount</name>
+							<mainClass>com.knownstylenolife.hadoop.workshop.wordcount.tool.WordCountSimpleTool</mainClass>
+							<name>wordCountSimple</name>
 						</program>
 					</programs>
 				</configuration>

@@ -8,9 +8,15 @@ This project contains exercises for the Hadoop Workshop started on July, 2011.
 
 ### Projects ###
 
-1.  **Word Count**:
+1.  **Word Count Simple**:
     Count the number of words consisting of \w+ characters.
 
+2.  **Word Count with Combiner&Patitiner**
+    Count the number of words consisting of \w+ characters.
+    Combiner sums up count of same key in a Mapper.
+    Partitioner divides into three reduce groups, 
+    which Mapper output key string starts with 0-9, A-M or N-Z.
+    
 ### Dependencies ###
 
 * Cloudera CDH3 version 0.20.2-cdh3u0

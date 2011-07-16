@@ -43,16 +43,23 @@ public class HdfsUtil {
 	}
 	
 	private static void deleteDirectoryContents(FileSystem fs, Path dirPath) throws IOException {
-		if(fs.isFile(dirPath)) {
-			throw new RuntimeException("The path is not directory. path = " + dirPath.toString());
+		if (fs.isFile(dirPath)) {
+			throw new IllegalStateException("The path is not directory. path = " + dirPath.toString());
 		}
-		else{
-			FileStatus[] fileStatuses = fs.listStatus(dirPath);
-			if(fileStatuses != null) {
-				for(FileStatus fileStatus : fileStatuses) {
-					HdfsUtil.deleteRecursively(fs, fileStatus.getPath());
-				}
-			}
+		FileStatus[] fileStatuses = fs.listStatus(dirPath);
+		if (fileStatuses == null) {
+			throw new RuntimeException("Error listing files for " + dirPath.toString());
+		}
+		for (FileStatus fileStatus : fileStatuses) {
+			HdfsUtil.deleteRecursively(fs, fileStatus.getPath());
+		}
+	}
+	
+	public static void deleteRecursivelyIfExists(String path) throws IOException {
+		FileSystem fs = FileSystem.get(new Configuration());
+		Path p = new Path(path);
+		if(fs.exists(p)) {
+			HdfsUtil.deleteRecursively(fs, p);
 		}
 	}
 	
@@ -62,11 +69,11 @@ public class HdfsUtil {
 	}
 	
 	private static void deleteRecursively(FileSystem fs, Path path) throws IOException {
-		if(fs.isFile(path)) {
-			fs.delete(path, false);
-		}
-		else {
+		if(!fs.isFile(path)) {
 			HdfsUtil.deleteDirectoryContents(fs, path);			
+		}
+		if(!fs.delete(path, false)) {
+			throw new RuntimeException("Fail to delete " + path.toUri());
 		}
 	}
 	
