@@ -81,7 +81,7 @@
 						<program>
 							<mainClass>com.knownstylenolife.hadoop.workshop.wordcount.tool.WordCountWithKeyPrefixPartitionerToolMain
 							</mainClass>
-							<name>WordCountWithKeyPrefixPartitioner</name>
+							<name>wordCountWithKeyPrefixPartitioner</name>
 						</program>
 					</programs>
 				</configuration>
@@ -243,7 +243,7 @@
 			<scope>runtime</scope>
 		</dependency>
 
-		<!-- for standalone mode -->
+		<!-- for Mini{DFS/MR}Cluster -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>

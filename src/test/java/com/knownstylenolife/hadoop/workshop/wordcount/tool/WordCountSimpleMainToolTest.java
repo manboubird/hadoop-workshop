@@ -117,7 +117,7 @@ public class WordCountSimpleMainToolTest extends MapReduceLocalTestCaseBase {
 			assertEquals("Does not match line!! line = " + (i + 1) + ", expected = " + expectedLineResultList.get(i) + ", actual = " + actualLine, 
 				expectedLineResultList.get(i), actualLine);
 		}
-		assertNull("actual file is no EOF", br.readLine());
+		assertNull("actual file is not ended yet", br.readLine());
 		br.close();
 	}
 }
