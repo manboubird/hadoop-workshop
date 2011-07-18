@@ -8,18 +8,17 @@ import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
-import com.knownstylenolife.hadoop.workshop.common.util.HadoopLoggerUtil;
+import com.knownstylenolife.hadoop.workshop.common.util.LogUtil;
 
-public class WordCountSimpleReducer extends Reducer<Text, LongWritable, Text, LongWritable> {
+public class WordCountSumReducer extends Reducer<Text, LongWritable, Text, LongWritable> {
 
-	Log LOG = LogFactory.getLog(WordCountSimpleReducer.class);
+	Log LOG = LogFactory.getLog(WordCountSumReducer.class);
 
 	private LongWritable outputValue;
 
 	@Override
 	protected void setup(Context context) {
-		HadoopLoggerUtil.setLogLevel(LOG, context.getConfiguration());
-		
+		LogUtil.setLogLevel(LOG, context.getConfiguration());
 		outputValue = new LongWritable();
 	}
 	

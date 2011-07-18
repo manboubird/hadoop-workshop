@@ -13,31 +13,36 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
-import com.knownstylenolife.hadoop.workshop.common.util.HadoopLoggerUtil;
-import com.knownstylenolife.hadoop.workshop.wordcount.mapreduce.WordCountSimpleMapper;
-import com.knownstylenolife.hadoop.workshop.wordcount.mapreduce.WordCountSimpleReducer;
+import com.knownstylenolife.hadoop.workshop.common.util.LogUtil;
+import com.knownstylenolife.hadoop.workshop.wordcount.mapreduce.WordCountMapper;
+import com.knownstylenolife.hadoop.workshop.wordcount.mapreduce.WordCountSumReducer;
+import com.knownstylenolife.hadoop.workshop.wordcount.partitioner.WordCountKeyPrefixPartitioner;
 
 
-public class WordCountSimpleTool extends Configured implements Tool {
+public class WordCountWithKeyPrefixPartitionerToolMain extends Configured implements Tool {
 
-	Log LOG = LogFactory.getLog(WordCountSimpleTool.class);
+	Log LOG = LogFactory.getLog(WordCountWithKeyPrefixPartitionerToolMain.class);
     
 	public int run(String[] args) throws Exception {
 		
-		Configuration conf = new Configuration();
+		Configuration conf = getConf();
 		
-		HadoopLoggerUtil.setLastArgAsLogLevel(args, conf);
-		
-		Job job = new Job(conf, "Word Count Simple");
+		LogUtil.setLastArgAsLogLevel(args, conf);
+	
+		Job job = new Job(conf, "Word Count Plus (Combiner&Partitioner)");
 		job.setJarByClass(getClass());
 		
 		LOG.info("input = " + args[0] + ", output = " + args[1]);
         FileInputFormat.setInputPaths(job, new Path(args[0]));
         FileOutputFormat.setOutputPath(job, new Path(args[1]));
 
-        job.setMapperClass(WordCountSimpleMapper.class);
-        job.setReducerClass(WordCountSimpleReducer.class);
-
+        job.setMapperClass(WordCountMapper.class);
+        job.setReducerClass(WordCountSumReducer.class);
+        job.setNumReduceTasks(WordCountKeyPrefixPartitioner.NUM_REDUCE_TASKS);
+        
+        job.setCombinerClass(WordCountSumReducer.class);
+        job.setPartitionerClass(WordCountKeyPrefixPartitioner.class);
+        
         job.setMapOutputKeyClass(Text.class);
         job.setMapOutputValueClass(LongWritable.class);
 
@@ -48,6 +53,6 @@ public class WordCountSimpleTool extends Configured implements Tool {
 	}
 	
     public static void main( String[] args) throws Exception {
-		System.exit(ToolRunner.run(new WordCountSimpleTool(), args));
+		System.exit(ToolRunner.run(new WordCountWithKeyPrefixPartitionerToolMain(), args));
     }
 }

@@ -1,21 +1,19 @@
 package com.knownstylenolife.hadoop.workshop.wordcount.mapreduce;
 
-import junit.framework.TestCase;
-
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mrunit.mapreduce.MapDriver;
 import org.junit.Before;
 import org.junit.Test;
 
-public class WordCountSimpleMapperTest extends TestCase {
+public class WordCountMapperTest {
 
-	private WordCountSimpleMapper mapper;
+	private WordCountMapper mapper;
 	private MapDriver<LongWritable, Text, Text, LongWritable> mapperDriver;
 
 	@Before
 	public void setUp() {
-		mapper = new WordCountSimpleMapper();
+		mapper = new WordCountMapper();
 		mapperDriver = new MapDriver<LongWritable, Text, Text, LongWritable>(mapper);
 	}
 	

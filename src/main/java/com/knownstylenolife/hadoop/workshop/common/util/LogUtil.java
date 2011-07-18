@@ -8,19 +8,19 @@ import org.apache.hadoop.conf.Configuration;
 import com.knownstylenolife.hadoop.workshop.common.consts.ConfigurationConst;
 
 
-public class HadoopLoggerUtil {
+public class LogUtil {
 
-	private static Log LOG = LogFactory.getLog(HadoopLoggerUtil.class);
+	private static Log LOG = LogFactory.getLog(LogUtil.class);
 
 	public static void setLogLevel(org.apache.commons.logging.Log log, Configuration configuration) {
 		String logLevel = configuration.get(ConfigurationConst.LOG_LEVEL);
 		if(logLevel != null) {
-			HadoopLoggerUtil.setLogLevel(log, org.apache.log4j.Level.toLevel(logLevel));
+			LogUtil.setLogLevel(log, org.apache.log4j.Level.toLevel(logLevel));
 		}
 	}
 	
 	public static void setLogLevel(org.apache.commons.logging.Log log, String level) {
-		HadoopLoggerUtil.setLogLevel(log, org.apache.log4j.Level.toLevel(level));
+		LogUtil.setLogLevel(log, org.apache.log4j.Level.toLevel(level));
 	}
 	
 	public static void setLogLevel(org.apache.commons.logging.Log log, org.apache.log4j.Level level) {

@@ -2,22 +2,20 @@ package com.knownstylenolife.hadoop.workshop.wordcount.mapreduce;
 
 import java.util.Arrays;
 
-import junit.framework.TestCase;
-
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mrunit.mapreduce.ReduceDriver;
 import org.junit.Before;
 import org.junit.Test;
 
-public class WordCountSimpleReducerTest extends TestCase {
+public class WordCountSumReducerTest {
 
-	private WordCountSimpleReducer reducer;
+	private WordCountSumReducer reducer;
 	private ReduceDriver<Text, LongWritable, Text, LongWritable> reducerDriver;
 
 	@Before
 	public void setUp() {
-		reducer = new WordCountSimpleReducer();
+		reducer = new WordCountSumReducer();
 		reducerDriver = new ReduceDriver<Text, LongWritable, Text, LongWritable>(reducer);
 	}
 	

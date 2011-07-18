@@ -10,12 +10,14 @@ This project contains exercises for the Hadoop Workshop started on July, 2011.
 
 1.  **Word Count Simple**:
     Count the number of words consisting of \w+ characters.
+    See WordCountSimpleMainTool class.
 
 2.  **Word Count with Combiner&Patitiner**
     Count the number of words consisting of \w+ characters.
-    Combiner sums up count of same key in a Mapper.
-    Partitioner divides into three reduce groups, 
-    which Mapper output key string starts with 0-9, A-M or N-Z.
+    Combiner does local aggregation of a map task output.
+    Partitioner divides into three reduces grouped by
+	mapper output key string starting with 0-9, A-M or N-Z.
+	See WordCountWithKeyPrefixPartitionerToolMain class.
     
 ### Dependencies ###
 

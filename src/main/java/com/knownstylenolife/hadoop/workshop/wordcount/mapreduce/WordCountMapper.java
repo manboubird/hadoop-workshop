@@ -10,11 +10,11 @@ import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
-import com.knownstylenolife.hadoop.workshop.common.util.HadoopLoggerUtil;
+import com.knownstylenolife.hadoop.workshop.common.util.LogUtil;
 
-public class WordCountSimpleMapper extends Mapper<LongWritable, Text, Text, LongWritable> {
+public class WordCountMapper extends Mapper<LongWritable, Text, Text, LongWritable> {
 	
-	private Log LOG = LogFactory.getLog(WordCountSimpleMapper.class);
+	private Log LOG = LogFactory.getLog(WordCountMapper.class);
 
 	public static final String WORDS_REGEX = "(\\w+)([^\\w]|$)";
 	private Matcher matcher;
@@ -24,7 +24,7 @@ public class WordCountSimpleMapper extends Mapper<LongWritable, Text, Text, Long
 		
 	@Override
 	protected void setup(Context context) throws IOException, InterruptedException {
-		HadoopLoggerUtil.setLogLevel(LOG, context.getConfiguration());
+		LogUtil.setLogLevel(LOG, context.getConfiguration());
 		
 		matcher = Pattern.compile(WORDS_REGEX).matcher("");
 		outputKey = new Text();
