@@ -13,6 +13,8 @@ import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.mapred.Utils.OutputFileUtils.OutputFilesFilter;
 import org.apache.hadoop.mapreduce.MapReduceTestUtil;
 
+import com.google.common.io.Files;
+
 public class DfsTestUtil {
 
 	private static Log LOG = LogFactory.getLog(DfsTestUtil.class.getName());
@@ -30,9 +32,9 @@ public class DfsTestUtil {
 	public static void uploadLocalFileToInputDir(FileSystem fs, Path inDir, File... inputFiles) throws IOException {
 		for (File file : inputFiles) {
 			if (!file.exists()) {
-				throw new RuntimeException("Local file does not exsists. path =" + file.getAbsolutePath());
+				throw new RuntimeException("Local file does not exsists. filename =" + file.getAbsolutePath());
 			}
-			LOG.info("Upload local file. path = " + file.getAbsolutePath());
+			LOG.info("Upload local file. filename = " + file.getAbsolutePath());
 			fs.copyFromLocalFile(false, true, new Path(file.getAbsolutePath()),
 					new Path(inDir, file.getName()));
 		}

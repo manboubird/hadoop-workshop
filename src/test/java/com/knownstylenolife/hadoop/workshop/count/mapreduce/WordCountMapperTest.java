@@ -1,10 +1,12 @@
-package com.knownstylenolife.hadoop.workshop.wordcount.mapreduce;
+package com.knownstylenolife.hadoop.workshop.count.mapreduce;
 
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mrunit.mapreduce.MapDriver;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.knownstylenolife.hadoop.workshop.count.mapreduce.WordCountMapper;
 
 public class WordCountMapperTest {
 

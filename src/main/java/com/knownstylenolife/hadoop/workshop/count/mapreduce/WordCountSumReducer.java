@@ -1,4 +1,4 @@
-package com.knownstylenolife.hadoop.workshop.wordcount.mapreduce;
+package com.knownstylenolife.hadoop.workshop.count.mapreduce;
 
 import java.io.IOException;
 

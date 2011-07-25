@@ -1,4 +1,4 @@
-package com.knownstylenolife.hadoop.workshop.wordcount.tool;
+package com.knownstylenolife.hadoop.workshop.count.tool;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -14,8 +14,8 @@ import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
 import com.knownstylenolife.hadoop.workshop.common.util.LogUtil;
-import com.knownstylenolife.hadoop.workshop.wordcount.mapreduce.WordCountMapper;
-import com.knownstylenolife.hadoop.workshop.wordcount.mapreduce.WordCountSumReducer;
+import com.knownstylenolife.hadoop.workshop.count.mapreduce.WordCountMapper;
+import com.knownstylenolife.hadoop.workshop.count.mapreduce.WordCountSumReducer;
 
 
 public class WordCountSimpleToolMain extends Configured implements Tool {

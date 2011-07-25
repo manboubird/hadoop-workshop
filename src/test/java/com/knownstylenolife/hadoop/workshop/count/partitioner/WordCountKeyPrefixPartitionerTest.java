@@ -1,4 +1,4 @@
-package com.knownstylenolife.hadoop.workshop.wordcount.partitioner;
+package com.knownstylenolife.hadoop.workshop.count.partitioner;
 
 
 import static org.junit.Assert.assertEquals;
@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.google.common.collect.ImmutableMap;
+import com.knownstylenolife.hadoop.workshop.count.partitioner.WordCountKeyPrefixPartitioner;
 
 public class WordCountKeyPrefixPartitionerTest {
 

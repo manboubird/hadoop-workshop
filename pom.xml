@@ -74,14 +74,19 @@
 					<repositoryName>lib</repositoryName>
 					<programs>
 						<program>
-							<mainClass>com.knownstylenolife.hadoop.workshop.wordcount.tool.WordCountSimpleToolMain
+							<mainClass>com.knownstylenolife.hadoop.workshop.count.tool.WordCountSimpleToolMain
 							</mainClass>
 							<name>wordCountSimple</name>
 						</program>
 						<program>
-							<mainClass>com.knownstylenolife.hadoop.workshop.wordcount.tool.WordCountWithKeyPrefixPartitionerToolMain
+							<mainClass>com.knownstylenolife.hadoop.workshop.count.tool.WordCountWithKeyPrefixPartitionerToolMain
 							</mainClass>
 							<name>wordCountWithKeyPrefixPartitioner</name>
+						</program>
+						<program>
+							<mainClass>com.knownstylenolife.hadoop.workshop.count.tool.CharCountSimpleToolMain
+							</mainClass>
+							<name>charCount</name>
 						</program>
 					</programs>
 				</configuration>

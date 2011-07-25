@@ -1,4 +1,4 @@
-package com.knownstylenolife.hadoop.workshop.wordcount.mapreduce;
+package com.knownstylenolife.hadoop.workshop.count.mapreduce;
 
 import java.util.Arrays;
 
@@ -7,6 +7,8 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mrunit.mapreduce.ReduceDriver;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.knownstylenolife.hadoop.workshop.count.mapreduce.WordCountSumReducer;
 
 public class WordCountSumReducerTest {
 

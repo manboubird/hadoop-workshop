@@ -1,13 +1,25 @@
 package com.knownstylenolife.hadoop.workshop.unit.tool;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.CoreMatchers.nullValue;
+import static org.junit.Assert.assertThat;
+
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.mapred.ClusterMapReduceTestCase;
 
+import com.google.common.base.Charsets;
+import com.google.common.io.Resources;
 import com.knownstylenolife.hadoop.workshop.unit.util.DfsTestUtil;
 
 
@@ -45,9 +57,37 @@ public class MapReduceClusterTestCaseBase extends ClusterMapReduceTestCase {
 	
 	private void setClusterEnvs() {
 		System.setProperty("test.build.data", TEST_BUILD_DATA);
+		
+		// The absence of valid hadoop.log.dir system property results in 
+		// a NPE or IOException being thrown by the test case during cluster setup. 
 		System.setProperty("hadoop.log.dir", HADOOP_LOG_DIR);
+		
 //		System.setProperty("hadoop.root.logger", HADOOP_ROOT_LOGGER);
 		System.setProperty("javax.xml.parsers.SAXParserFactory",
 				"com.sun.org.apache.xerces.internal.jaxp.SAXParserFactoryImpl");
+	}
+	
+	protected void assertOutputFiles(Path[] actualFilePathes, URL[] expectedOutputFileUrls) throws IOException {
+		assertThat(actualFilePathes.length, is(expectedOutputFileUrls.length));
+		for(int i=0; i< actualFilePathes.length; i++ ){
+			assertOutputFile(actualFilePathes[i], expectedOutputFileUrls[i]);
+		}
+	}
+	
+	protected void assertOutputFile(Path actualOutputFile, URL expectedFileUrl) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(getFileSystem().open(actualOutputFile)));
+
+		List<String> expectedLineResultList = Resources.readLines(expectedFileUrl, Charsets.UTF_8);
+		int expectedLineResultListSize = expectedLineResultList.size();
+		String actualLine;
+		for(int i = 0; i < expectedLineResultListSize; i++) {
+			assertThat("Actual file is ended", 
+				actualLine = br.readLine(), not(nullValue()));
+			assertThat("Does not match line!! line = " + (i + 1) + ", expected = " + expectedLineResultList.get(i) + ", actual = " + actualLine, 
+				actualLine, is(expectedLineResultList.get(i)));
+		}
+		assertThat("actual file is not ended yet!! ", 
+			br.readLine(), is(nullValue()));
+		br.close();
 	}
 }

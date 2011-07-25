@@ -2,7 +2,6 @@ package com.knownstylenolife.hadoop.workshop.unit.util;
 
 import java.util.List;
 
-import org.apache.hadoop.io.Writable;
 import org.apache.hadoop.mrunit.types.Pair;
 
 import com.google.common.base.Function;
@@ -10,7 +9,7 @@ import com.google.common.collect.Lists;
 
 public class PairUtil {
 
-	public static <T1, T2> List<String> toStrings(List<Pair<T1, T2>> list) {
+	public static <T1, T2> List<String> toStringList(List<Pair<T1, T2>> list) {
 		return PairUtil.toStrings(list,"\t");
 	}
 	

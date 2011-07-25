@@ -1,4 +1,4 @@
-package com.knownstylenolife.hadoop.workshop.wordcount.partitioner;
+package com.knownstylenolife.hadoop.workshop.count.partitioner;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,6 +18,6 @@ public class WordCountKeyPrefixPartitioner extends Partitioner<Text, LongWritabl
 		String str = key.toString();
 		int i = formerAlphabetMatcher.reset(str).matches() ? 0 
 				: numberMatcher.reset(str).matches() ? 1 : 2;
-	    return  (i & Integer .MAX_VALUE) % numPartitions;
+	    return  (i & Integer.MAX_VALUE) % numPartitions;
 	}
 }

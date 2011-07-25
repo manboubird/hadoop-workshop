@@ -19,7 +19,7 @@ public class HdfsUtil {
 		Path src = new Path(srcFilePath);
 		Path dst = new Path(dstFilePath);
 		if(fs.exists(dst)){
-			LOG.info("The dst path already exists. path = " + dst.toString());
+			LOG.info("The dst filename already exists. filename = " + dst.toString());
 		}
 		else{
 			fs.copyFromLocalFile(src, dst);
@@ -30,7 +30,7 @@ public class HdfsUtil {
 		FileSystem fs = FileSystem.get(new Configuration());
 		Path path = new Path(dirPath);
 		if(fs.exists(path)){
-			LOG.info("The path already exists. path = " + path.toString());
+			LOG.info("The filename already exists. filename = " + path.toString());
 		}
 		else{
 			fs.mkdirs(path);
@@ -44,7 +44,7 @@ public class HdfsUtil {
 	
 	private static void deleteDirectoryContents(FileSystem fs, Path dirPath) throws IOException {
 		if (fs.isFile(dirPath)) {
-			throw new IllegalStateException("The path is not directory. path = " + dirPath.toString());
+			throw new IllegalStateException("The filename is not directory. filename = " + dirPath.toString());
 		}
 		FileStatus[] fileStatuses = fs.listStatus(dirPath);
 		if (fileStatuses == null) {
@@ -89,7 +89,7 @@ public class HdfsUtil {
 		FileSystem fs = FileSystem.get(new Configuration());
 		Path dstPath = new Path(path);
 		if(fs.exists(dstPath)) {
-			throw new RuntimeException("The path is already exists. path = " + dstPath.toString());
+			throw new RuntimeException("The filename is already exists. filename = " + dstPath.toString());
 		}
 		FSDataOutputStream out = fs.create(dstPath);
 		out.writeUTF(contents);
