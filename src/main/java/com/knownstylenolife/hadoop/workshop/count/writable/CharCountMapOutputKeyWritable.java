@@ -4,21 +4,22 @@ import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
+import org.apache.hadoop.io.Text;
 import org.apache.hadoop.io.WritableComparable;
 import org.apache.hadoop.io.WritableUtils;
 
-public class CharCountMapOutputKeyWritable implements WritableComparable<CharCountMapOutputKeyWritable>{
+public class CharCountMapOutputKeyWritable implements WritableComparable<CharCountMapOutputKeyWritable> {
 
 	private CharCountData charCountData;
 
 	public CharCountMapOutputKeyWritable() {}
 	
-	public CharCountMapOutputKeyWritable(CharCountData logCountData) {
-		set(logCountData);
+	public CharCountMapOutputKeyWritable(CharCountData charCountData) {
+		set(charCountData);
 	}
 	
-	public void set(CharCountData logCountData) {
-		this.charCountData = logCountData;
+	public void set(CharCountData charCountData) {
+		this.charCountData = charCountData;
 	}
 	
 	public CharCountData get() {
@@ -27,23 +28,23 @@ public class CharCountMapOutputKeyWritable implements WritableComparable<CharCou
 
 	public void readFields(DataInput in) throws IOException {
 		CharCountData charCountData = new CharCountData();
-		charCountData.filename = WritableUtils.readString(in);
+		charCountData.filename = Text.readString(in);
 		charCountData.offset = WritableUtils.readVLong(in);
-		charCountData.character = WritableUtils.readString(in).charAt(0);
+		charCountData.codePoint = WritableUtils.readVInt(in);
 		this.charCountData = charCountData;
 	}
 
 	public void write(DataOutput out) throws IOException {
 		CharCountData mine = this.charCountData;
-		WritableUtils.writeString(out, mine.filename);
+		Text.writeString(out, mine.filename);
 		WritableUtils.writeVLong(out, mine.offset);
-		WritableUtils.writeString(out, mine.character.toString());
+		WritableUtils.writeVInt(out, mine.codePoint);
 	}
 
 	public int compareTo(CharCountMapOutputKeyWritable logCountMapOutputKeyWritable) {
 		CharCountData mine = this.charCountData;
 		CharCountData another = logCountMapOutputKeyWritable.charCountData;
-		int cmp = mine.filename.compareTo(another.filename); 
+		int cmp = mine.filename.compareTo(another.filename);
 		if (cmp != 0 ) {
 			return cmp;
 		}
@@ -51,7 +52,7 @@ public class CharCountMapOutputKeyWritable implements WritableComparable<CharCou
 		if (cmp != 0 ) {
 			return cmp;
 		}
-		return mine.character.compareTo(another.character);
+		return Integer.valueOf(mine.codePoint).compareTo(another.codePoint);
 	}
 	
 	@Override
@@ -71,10 +72,15 @@ public class CharCountMapOutputKeyWritable implements WritableComparable<CharCou
 		return true;
 	}
 
+	/**
+	 * toString() is used to create reducerのoutput key String of TEXT.
+	 * 
+	 * (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
-		return "CharCountMapOutputKeyWritable [charCountData=" + charCountData
-				+ "]";
+		return charCountData.filename + "\t" + charCountData.offset + "\t" + String.valueOf(Character.toChars(charCountData.codePoint));
 	}
 
 }

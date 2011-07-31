@@ -17,6 +17,7 @@ import org.junit.Test;
 
 import com.google.common.collect.Lists;
 import com.google.common.io.Resources;
+import com.knownstylenolife.hadoop.workshop.common.util.HdfsUtil;
 import com.knownstylenolife.hadoop.workshop.unit.tool.MapReduceClusterTestCaseBase;
 import com.knownstylenolife.hadoop.workshop.unit.util.DfsTestUtil;
 
@@ -25,7 +26,7 @@ public class WordCountWithKeyPrefixPartitionerToolMainTest extends MapReduceClus
 	@SuppressWarnings("unused")
 	private Log LOG = LogFactory.getLog(WordCountWithKeyPrefixPartitionerToolMainTest.class);
 	
-	private static final String MR_LOG_LEVEL = org.apache.log4j.Level.DEBUG.toString();
+	private static final String MR_LOG_LEVEL = org.apache.log4j.Level.INFO.toString();
 
 	private WordCountWithKeyPrefixPartitionerToolMain tool;
 	private String inputFilename = "WordCountWithKeyPrefixPartitionerToolMain/testRun_input/hadoop-wikipedia.txt";
@@ -42,7 +43,7 @@ public class WordCountWithKeyPrefixPartitionerToolMainTest extends MapReduceClus
 		}
 		tool = new WordCountWithKeyPrefixPartitionerToolMain();
 		tool.setConf(createJobConf());
-		prepareJob(new File(Resources.getResource(getClass(), inputFilename).toURI()));
+		HdfsUtil.setConfiguration(getFileSystem().getConf());
 	}
 
 	@AfterClass
@@ -52,6 +53,7 @@ public class WordCountWithKeyPrefixPartitionerToolMainTest extends MapReduceClus
 	
 	@Test
 	public void testRun() throws Exception {
+		prepareJob(new File(Resources.getResource(getClass(), inputFilename).toURI()));
 		assertThat( 
 			ToolRunner.run(
 				tool, 

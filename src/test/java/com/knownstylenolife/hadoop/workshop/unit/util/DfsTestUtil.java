@@ -3,6 +3,7 @@ package com.knownstylenolife.hadoop.workshop.unit.util;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.ObjectInputStream.GetField;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -34,7 +35,7 @@ public class DfsTestUtil {
 			if (!file.exists()) {
 				throw new RuntimeException("Local file does not exsists. filename =" + file.getAbsolutePath());
 			}
-			LOG.info("Upload local file. filename = " + file.getAbsolutePath());
+			LOG.info("Upload local file. filename = " + file.getAbsolutePath() + ", dst dir = " + inDir.makeQualified(fs));
 			fs.copyFromLocalFile(false, true, new Path(file.getAbsolutePath()),
 					new Path(inDir, file.getName()));
 		}

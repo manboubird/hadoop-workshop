@@ -8,11 +8,10 @@ import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.mapreduce.Reducer;
 
 import com.knownstylenolife.hadoop.workshop.common.util.LogUtil;
-import com.knownstylenolife.hadoop.workshop.count.writable.CharCountMapOutputKeyWritable;
 
-public class CharCountSumCombiner extends Reducer<CharCountMapOutputKeyWritable, LongWritable, CharCountMapOutputKeyWritable, LongWritable> {
+public class GenericsCountSumReducer<KEY> extends Reducer<KEY, LongWritable, KEY, LongWritable> {
 
-	Log LOG = LogFactory.getLog(CharCountSumCombiner.class);
+	private Log LOG = LogFactory.getLog(GenericsCountSumReducer.class);
 
 	private LongWritable outputValue;
 
@@ -21,9 +20,9 @@ public class CharCountSumCombiner extends Reducer<CharCountMapOutputKeyWritable,
 		LogUtil.setLogLevel(LOG, context.getConfiguration());
 		outputValue = new LongWritable();
 	}
-	
+
     @Override
-    public void reduce(CharCountMapOutputKeyWritable key, Iterable<LongWritable> values, Context context) throws IOException, InterruptedException {
+    public void reduce(KEY key, Iterable<LongWritable> values, Context context) throws IOException, InterruptedException {
 
     	if(LOG.isDebugEnabled()) {
     		LOG.debug("[ key = " + key.toString() + " ]");

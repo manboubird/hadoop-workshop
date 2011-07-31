@@ -68,7 +68,7 @@ public class MapReduceClusterTestCaseBase extends ClusterMapReduceTestCase {
 	}
 	
 	protected void assertOutputFiles(Path[] actualFilePathes, URL[] expectedOutputFileUrls) throws IOException {
-		assertThat(actualFilePathes.length, is(expectedOutputFileUrls.length));
+		assertThat("# of actual pathes not equals to # of expeted output files.", actualFilePathes.length, is(expectedOutputFileUrls.length));
 		for(int i=0; i< actualFilePathes.length; i++ ){
 			assertOutputFile(actualFilePathes[i], expectedOutputFileUrls[i]);
 		}

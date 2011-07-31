@@ -13,10 +13,12 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
+import com.knownstylenolife.hadoop.workshop.common.util.HdfsUtil;
 import com.knownstylenolife.hadoop.workshop.common.util.LogUtil;
+import com.knownstylenolife.hadoop.workshop.count.comparator.CharCountFilenameKeyGroupComparator;
 import com.knownstylenolife.hadoop.workshop.count.mapreduce.CharCountMapper;
-import com.knownstylenolife.hadoop.workshop.count.mapreduce.CharCountSumCombiner;
-import com.knownstylenolife.hadoop.workshop.count.mapreduce.CharCountSumReducer;
+import com.knownstylenolife.hadoop.workshop.count.mapreduce.GenericsCountSumReducer;
+import com.knownstylenolife.hadoop.workshop.count.partitioner.CharCountFilenamePartitioner;
 import com.knownstylenolife.hadoop.workshop.count.writable.CharCountMapOutputKeyWritable;
 
 
@@ -32,13 +34,17 @@ public class CharCountSimpleToolMain extends Configured implements Tool {
 		
 		Job job = new Job(conf, "Char Count Simple");
 		job.setJarByClass(getClass());
-		
-		LOG.info("input = " + args[0] + ", output = " + args[1]);
-        FileInputFormat.setInputPaths(job, new Path(args[0]));
-        FileOutputFormat.setOutputPath(job, new Path(args[1]));
+
+		Path inputPath = new Path(args[0]);
+		Path outputPath = new Path(args[1]);
+		LOG.info("input = " + HdfsUtil.makeQualifedPath(inputPath).toString() + 
+				", output = " + HdfsUtil.makeQualifedPath(outputPath).toString());
+
+		FileInputFormat.setInputPaths(job, inputPath);
+        FileOutputFormat.setOutputPath(job, outputPath);
 
         job.setMapperClass(CharCountMapper.class);
-        job.setReducerClass(CharCountSumReducer.class);
+        job.setReducerClass(GenericsCountSumReducer.class);
 
         job.setMapOutputKeyClass(CharCountMapOutputKeyWritable.class);
         job.setMapOutputValueClass(LongWritable.class);
@@ -46,7 +52,19 @@ public class CharCountSimpleToolMain extends Configured implements Tool {
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(LongWritable.class);
 
-        job.setCombinerClass(CharCountSumCombiner.class);
+        job.setPartitionerClass(CharCountFilenamePartitioner.class);
+        job.setCombinerClass(GenericsCountSumReducer.class);
+        
+        int inputFileNum = HdfsUtil.getPathes(inputPath).length;
+        if(inputFileNum == 0) {
+        	LOG.error("There is no input files.");
+        	return 1;
+        }
+        int numReduceTasks = Double.valueOf(Math.ceil(Double.valueOf(inputFileNum) / 2)).intValue();
+        LOG.info("set Reduce Tasks Num to " + numReduceTasks);
+        job.setNumReduceTasks(numReduceTasks);
+        
+        job.setGroupingComparatorClass(CharCountFilenameKeyGroupComparator.class);
         
         return job.waitForCompletion(true) ? 0 : 1;
 	}
