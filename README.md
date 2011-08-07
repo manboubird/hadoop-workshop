@@ -78,6 +78,38 @@ Writable is used for map output key.
 
 See CharCountSimpleToolMainTest class.
     
+### 4. First Char Count
+
+Count the number of words grouped by first character of words.
+Both unique count of the word and total count of word are included in output.
+
+See FirstCharCountToolMain class.
+
+**Example:**
+    
+Input file hello.txt includes content below.
+    
+**hello.txt Content:**
+    
+> 0world
+> Hello, world
+> Hello, Hadoop's
+> Hello, MapReduce
+   
+**Output should be:**
+    
+{FIRST_CHARACTER_OF_WORD}\t{UNIQUE_COUNT_OF_WORD_APPEAR}\t{TOTAL_COUNT_OF_WORD_APPEAR}
+
+> 0		1	1
+>
+> h		2	4
+>
+> m		1	1
+>
+> s		1	1
+>
+> w		1	1
+
 ## Dependencies
 
 * Cloudera CDH3 version 0.20.2-cdh3u0

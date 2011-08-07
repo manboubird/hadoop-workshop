@@ -9,7 +9,7 @@ public class CharCountFilenamePartitioner extends Partitioner<CharCountMapOutput
 
 	public int getPartition(CharCountMapOutputKeyWritable key, LongWritable value, int numPartitions) {
 	    int partitionId = (key.get().filename.hashCode() & Integer.MAX_VALUE) % numPartitions;
-//		System.err.println(">>> CharCountFilenamePartitioner#getPartition() is called!!!. filename = " + key.get().filename + ", hashCode = " + key.get().filename.hashCode() + ", partitionId = " + partitionId + ", numPartitions = " + numPartitions);
+//		System.err.println(">>> CharCountFilenamePartitioner#getPartition() is called!!!. word = " + key.get().filename + ", hashCode = " + key.get().filename.hashCode() + ", partitionId = " + partitionId + ", numPartitions = " + numPartitions);
 	    return partitionId;
 	}
 }

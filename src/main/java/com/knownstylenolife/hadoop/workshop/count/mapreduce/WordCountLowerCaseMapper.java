@@ -12,9 +12,9 @@ import org.apache.hadoop.mapreduce.Mapper;
 
 import com.knownstylenolife.hadoop.workshop.common.util.LogUtil;
 
-public class WordCountMapper extends Mapper<LongWritable, Text, Text, LongWritable> {
+public class WordCountLowerCaseMapper extends Mapper<LongWritable, Text, Text, LongWritable> {
 	
-	private Log LOG = LogFactory.getLog(WordCountMapper.class);
+	private Log LOG = LogFactory.getLog(WordCountLowerCaseMapper.class);
 
 	public static final String WORDS_REGEX = "(\\w+)([^\\w]|$)";
 
@@ -34,10 +34,10 @@ public class WordCountMapper extends Mapper<LongWritable, Text, Text, LongWritab
 		if(LOG.isDebugEnabled()) {
     		LOG.debug("[ key = \"" + key.toString() + "\" ]" + "[ value = \"" + value.toString() + "\"]");
     	}
-    	
-		Matcher matcher = Pattern.compile(WORDS_REGEX).matcher(value.toString());
+		
+		Matcher matcher = Pattern.compile(WORDS_REGEX).matcher(value.toString().toLowerCase());
 		while(matcher.find()) {
-			
+
 			outputKey.set(matcher.group(1));
 			
         	if(LOG.isDebugEnabled()) {

@@ -46,8 +46,8 @@ public class CharCountMapOutputKeyWritable implements WritableComparable<CharCou
 		CharCountData another = logCountMapOutputKeyWritable.charCountData;
 		// for logging
 //		System.err.println(">>> CharCountMapOutputKeyWritable#compreTo is called!!! : \n" +
-//			"  CharCountData 1 [codePoint=" + mine.codePoint + " => '" + String.valueOf(Character.toChars(mine.codePoint)) + "', filename=" + mine.filename + ", offset=" + mine.offset + "]\n" + 
-//			"  CharCountData 2 [codePoint=" + another.codePoint + " => '" + String.valueOf(Character.toChars(another.codePoint)) + "', filename=" + another.filename + ", offset=" + another.offset + "]");
+//			"  CharCountData 1 [character=" + mine.codePoint + " => '" + String.valueOf(Character.toChars(mine.codePoint)) + "', word=" + mine.filename + ", offset=" + mine.offset + "]\n" + 
+//			"  CharCountData 2 [character=" + another.codePoint + " => '" + String.valueOf(Character.toChars(another.codePoint)) + "', word=" + another.filename + ", offset=" + another.offset + "]");
 		int cmp = mine.filename.compareTo(another.filename);
 		if (cmp != 0 ) {
 			return cmp;

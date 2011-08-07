@@ -93,6 +93,11 @@
 							</mainClass>
 							<name>charCountCompareTo</name>
 						</program>
+						<program>
+							<mainClass>com.knownstylenolife.hadoop.workshop.count.tool.FirstCharCountToolMain
+							</mainClass>
+							<name>firstCharCount</name>
+						</program>
 					</programs>
 				</configuration>
 			</plugin>
