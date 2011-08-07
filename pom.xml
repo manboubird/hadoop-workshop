@@ -89,9 +89,9 @@
 							<name>charCount</name>
 						</program>
 						<program>
-							<mainClass>com.knownstylenolife.hadoop.workshop.count.tool.CharCountCompareToToolMain
+							<mainClass>com.knownstylenolife.hadoop.workshop.count.tool.CharCountWithoutReducerToolMain
 							</mainClass>
-							<name>charCountCompareTo</name>
+							<name>charCountWithoutReducer</name>
 						</program>
 						<program>
 							<mainClass>com.knownstylenolife.hadoop.workshop.count.tool.FirstCharCountToolMain

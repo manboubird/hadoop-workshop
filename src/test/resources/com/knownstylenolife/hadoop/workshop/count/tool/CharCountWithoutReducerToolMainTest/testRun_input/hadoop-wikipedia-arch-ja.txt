@@ -1,0 +1,6 @@
+Hadoop は、 Hadoop が対応(support)するファイルシステムへのアクセスを提供するHadoop Commonで構成する。ここで、「Rack Awareness」とは、サーバクラスタの地理的位置を考慮した最適化の考えである。つまり、異なる地理的位置にあるサーバ間の網伝送(network traffic)を最小にするということである。[3] 2008年6月現在、下記のファイルシステムに対応している。
+HDFS: Hadoop独自のファイルシステムである。HDFSは各OSが提供するファイルシステム上で動作し、 数ペタバイトの容量まで拡張するよう設計している。
+Amazon S3 filesystem. このファイルシステムは、Amazon Elastic Compute Cloud 環境で構築したクラスタ上で動作する。なお、このAmazon S3 ファイルシステムはRack-awarenessが考慮されておらず、すべてリモートサイトで動作する。
+CloudStore (旧 Kosmos Distributed File System）: HDFSのようなRack-Awarenessなファイルシステム。
+FTP Filesystem: すべてのデータをFTPによりアクセス可能なリモートサーバに格納する。
+Read-only HTTP and HTTPS file systems.

@@ -1,0 +1,1 @@
+Apache Hadoopは無償(free)のJavaソフトウェアの枠組み(ソフトウェアフレームワーク)である。大規模情報(data)の分散応用(application)を支援(support)する。[1]Hadoopはアプリケーションが数千ノードおよびペタバイト級のデータを処理することを可能としている。HadoopはGoogleのMapReduceおよびGoogle File System(GFS)論文に触発されたものである。HadoopはApacheの上位事業(top level project)の一つであり、世界中の開発者の集まり(community)が開発、使用している。[2]
