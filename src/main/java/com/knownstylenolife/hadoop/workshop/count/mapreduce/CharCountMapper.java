@@ -51,8 +51,7 @@ public class CharCountMapper extends Mapper<LongWritable, Text, CharCountMapOutp
 		
 		for(int i = 0, codePoint = 0; i < len; i += Character.charCount(codePoint)) {
 			codePoint = Character.codePointAt(chars, i);
-			if(Character.isSupplementaryCodePoint(codePoint) 
-				|| !Character.isWhitespace(Character.toChars(codePoint)[0])) {
+			if(!Character.isWhitespace(Character.toChars(codePoint)[0])) {
 				CharCountData charCountData = new CharCountData(filename.toString(), offset, codePoint);
 				outputKey.set(charCountData);
 				

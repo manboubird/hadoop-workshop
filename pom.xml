@@ -88,6 +88,11 @@
 							</mainClass>
 							<name>charCount</name>
 						</program>
+						<program>
+							<mainClass>com.knownstylenolife.hadoop.workshop.count.tool.CharCountCompareToToolMain
+							</mainClass>
+							<name>charCountCompareTo</name>
+						</program>
 					</programs>
 				</configuration>
 			</plugin>
@@ -177,7 +182,6 @@
 			<artifactId>jetty</artifactId>
 			<version>6.1.26</version>
 			<type>jar</type>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.mortbay.jetty</groupId>
@@ -205,7 +209,6 @@
 			<artifactId>guava</artifactId>
 			<version>r09</version>
 			<type>jar</type>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>commons-io</groupId>

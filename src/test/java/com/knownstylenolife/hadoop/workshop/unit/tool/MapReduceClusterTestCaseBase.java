@@ -15,6 +15,7 @@ import java.util.Properties;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.mapred.ClusterMapReduceTestCase;
 
@@ -43,6 +44,17 @@ public class MapReduceClusterTestCaseBase extends ClusterMapReduceTestCase {
 		prop.put("hadoop.tmp.dir", HADOOP_TMP_DIR);
 //		prop.put("dfs.namenode.logging.level", HADOOP_DFS_NAMENODE_LOGGING_LEVEL);
 	    startCluster(true, prop);
+	}
+	
+	protected Configuration getConfiguration() throws IOException {
+		Configuration conf = getFileSystem().getConf();
+		String s = createJobConf().get("mapred.job.tracker");
+		if(s == null) {
+			throw new IllegalStateException("Cannot set mapred.job.tracker");
+		}
+		// set MiniMRCluster's job tracker info, otherwise LocalJobRunner will be run.
+		conf.set("mapred.job.tracker", s);
+		return conf;
 	}
 	
 	protected void prepareJob(File... inputFiles) throws IOException {

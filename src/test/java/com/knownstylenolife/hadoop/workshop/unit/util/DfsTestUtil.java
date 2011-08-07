@@ -3,7 +3,6 @@ package com.knownstylenolife.hadoop.workshop.unit.util;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.ObjectInputStream.GetField;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -13,8 +12,6 @@ import org.apache.hadoop.fs.FileUtil;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.mapred.Utils.OutputFileUtils.OutputFilesFilter;
 import org.apache.hadoop.mapreduce.MapReduceTestUtil;
-
-import com.google.common.io.Files;
 
 public class DfsTestUtil {
 

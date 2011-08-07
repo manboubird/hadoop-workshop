@@ -15,7 +15,6 @@ import org.apache.hadoop.util.ToolRunner;
 
 import com.knownstylenolife.hadoop.workshop.common.util.HdfsUtil;
 import com.knownstylenolife.hadoop.workshop.common.util.LogUtil;
-import com.knownstylenolife.hadoop.workshop.count.comparator.CharCountFilenameKeyGroupComparator;
 import com.knownstylenolife.hadoop.workshop.count.mapreduce.CharCountMapper;
 import com.knownstylenolife.hadoop.workshop.count.mapreduce.GenericsCountSumReducer;
 import com.knownstylenolife.hadoop.workshop.count.partitioner.CharCountFilenamePartitioner;
@@ -64,11 +63,12 @@ public class CharCountSimpleToolMain extends Configured implements Tool {
         LOG.info("set Reduce Tasks Num to " + numReduceTasks);
         job.setNumReduceTasks(numReduceTasks);
         
-        job.setGroupingComparatorClass(CharCountFilenameKeyGroupComparator.class);
+//        job.setGroupingComparatorClass(CharCountFilenameKeyGroupComparator.class);
+//        job.setSortComparatorClass(CharCountCharacterKeySortComparator.class);
         
         return job.waitForCompletion(true) ? 0 : 1;
 	}
-	
+
     public static void main( String[] args) throws Exception {
 		System.exit(ToolRunner.run(new CharCountSimpleToolMain(), args));
     }

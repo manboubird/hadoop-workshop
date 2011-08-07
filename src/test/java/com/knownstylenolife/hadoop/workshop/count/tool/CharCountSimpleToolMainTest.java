@@ -10,7 +10,9 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.mapred.JobConf;
 import org.apache.hadoop.util.ToolRunner;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -45,9 +47,13 @@ public class CharCountSimpleToolMainTest extends MapReduceClusterTestCaseBase {
 		for(File file: new File(Resources.getResource(getClass(), expectedOutputDirPath).toURI()).listFiles()) {
 			expectedOutputFileUrlList.add(file.toURI().toURL());
 		}
+		Configuration conf = getConfiguration();
+		HdfsUtil.setConfiguration(conf);
 		tool = new CharCountSimpleToolMain();
-		tool.setConf(createJobConf());
-		HdfsUtil.setConfiguration(getFileSystem().getConf());
+		tool.setConf(conf);
+		JobConf jobConf = createJobConf();
+		jobConf.setJar("target/hadoop-workshop-0.0.1.jar");
+		tool.setConf(jobConf);
 	}
 
 	@AfterClass
@@ -68,6 +74,6 @@ public class CharCountSimpleToolMainTest extends MapReduceClusterTestCaseBase {
 		}), is(0));
 		Path[] actualOutputFiles = DfsTestUtil.getOutputFiles(getOutputDir(), getFileSystem());
 		// cannot pass the test due to path logical case? via mvn test. temporal comment out.
-//		assertOutputFiles(actualOutputFiles, expectedOutputFileUrlList.toArray(new URL[0]));
+		assertOutputFiles(actualOutputFiles, expectedOutputFileUrlList.toArray(new URL[0]));
 	}
 }

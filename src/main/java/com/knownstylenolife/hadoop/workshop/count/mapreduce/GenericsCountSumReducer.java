@@ -31,6 +31,7 @@ public class GenericsCountSumReducer<KEY> extends Reducer<KEY, LongWritable, KEY
     	long count = 0L;
     	for(LongWritable value : values) {
     		count += value.get();
+//    		System.err.println(">>> GenericsCountSumReducer#reduce: Iteration count = " + count);
     	}
     	outputValue.set(count);
     	
