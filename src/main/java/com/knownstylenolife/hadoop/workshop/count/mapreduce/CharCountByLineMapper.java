@@ -1,8 +1,8 @@
 package com.knownstylenolife.hadoop.workshop.count.mapreduce;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.Map.Entry;
 
 import org.apache.commons.logging.Log;
@@ -48,7 +48,7 @@ public class CharCountByLineMapper extends Mapper<LongWritable, Text, Text, Long
 		
 		// key = [ character's codePoint ]
 		// value = [ # of characater's codePoint appear in line ]
-		Map<Integer, Long> codePointCountMap = new HashMap<Integer, Long>();
+		Map<Integer, Long> codePointCountMap = new TreeMap<Integer, Long>();
 
 		char[] chars = value.toString().toCharArray();
 		int len = value.toString().length();
