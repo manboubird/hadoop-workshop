@@ -85,6 +85,16 @@ Both unique count of the word and total count of word are included in output.
 
 See FirstCharCountToolMain class.
 
+### 5. User History
+
+See UserHistoryToolMain class.
+
+### 6. Reduce side join 
+
+Count word and join a link with a link on the word if links.txt includes the word.
+
+See ReduceSideJoinToolMain class.
+
 **Example:**
     
 Input file hello.txt includes content below.

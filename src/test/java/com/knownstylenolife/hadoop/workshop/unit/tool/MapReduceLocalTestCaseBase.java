@@ -19,6 +19,7 @@ import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 
 import com.google.common.base.Charsets;
+import com.google.common.base.Preconditions;
 import com.google.common.io.Resources;
 import com.knownstylenolife.hadoop.workshop.unit.util.DfsTestUtil;
 
@@ -66,6 +67,17 @@ public class MapReduceLocalTestCaseBase {
 		return new Path(OUT_DIR);
 	}
 
+	protected void prepareJobWithDirs(File... inputDirs) throws IOException {
+		DfsTestUtil.cleanDirs(getInputDir(), getOutputDir(), getFileSystem());
+		for(File dir: inputDirs) {
+			Preconditions.checkState(dir.isDirectory(), "It's not directory. " + dir.getAbsolutePath());
+			DfsTestUtil.uploadLocalFileToInputDir(
+				getFileSystem(), 
+				new Path(getInputDir(), dir.getName()), 
+				dir.listFiles());
+		}
+	}
+	
 	protected void prepareJob(File... inputFiles) throws IOException {
 		DfsTestUtil.cleanDirs(getInputDir(), getOutputDir(), getFileSystem());
 		DfsTestUtil.uploadLocalFileToInputDir(getFileSystem(), getInputDir(), inputFiles);
