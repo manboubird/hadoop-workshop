@@ -23,10 +23,8 @@ public class UserHistoryToolMainTest extends MapReduceLocalTestCaseBase {
 	private static final String MR_LOG_LEVEL = org.apache.log4j.Level.DEBUG.toString();
 
 	private UserHistoryToolMain tool;
-	private String inputFilename = "UserHistoryToolMainTest/testRun_input/input1.txt";
-	private String expectedOutputFilePath = "UserHistoryToolMainTest/testRun_expected/part-r-00000-1";
-//	private String inputFilename = "UserHistoryToolMainTest/testRun_input/input2.txt";
-//	private String expectedOutputFilePath = "UserHistoryToolMainTest/testRun_expected/part-r-00000-2";
+	private String inputFilename = "UserHistoryToolMainTest/testRun_input/input.txt";
+	private String expectedOutputFilePath = "UserHistoryToolMainTest/testRun_expected/part-r-00000";
 
 	@Before
 	public void setUp() throws Exception {

@@ -37,7 +37,12 @@ public class UserHistoryMapper extends Mapper<LongWritable, Text, UserHitoryMapO
 			System.err.println("Illegal line : " + key.toString());
 			return;
 		}
-		outputKey.set(new UserHistoryData(splitted[0], splitted[1], Long.parseLong(splitted[2]), Long.parseLong(splitted[3])));
+		UserHistoryData userHistoryData = new UserHistoryData(splitted[0], splitted[1], Long.parseLong(splitted[2]), Long.parseLong(splitted[3])); 
+		if(userHistoryData.cvId <= 0 && userHistoryData.urlId <= 0) {
+			System.err.println("Illegal userHistoryData : " + userHistoryData.toString());
+			return;
+		}
+		outputKey.set(userHistoryData);
 			
        	if(LOG.isDebugEnabled()) {
         	LOG.debug("  [ outputKey = \"" + outputKey.toString() + "\" ]");

@@ -16,7 +16,6 @@ import org.apache.hadoop.util.ToolRunner;
 import com.knownstylenolife.hadoop.workshop.common.util.HdfsUtil;
 import com.knownstylenolife.hadoop.workshop.common.util.LogUtil;
 import com.knownstylenolife.hadoop.workshop.count.comparator.UserHitoryKeyGroupComparator;
-import com.knownstylenolife.hadoop.workshop.count.comparator.UserHitorySortComparator;
 import com.knownstylenolife.hadoop.workshop.count.mapreduce.UserHistoryMapper;
 import com.knownstylenolife.hadoop.workshop.count.mapreduce.UserHistoryReducer;
 import com.knownstylenolife.hadoop.workshop.count.partitioner.UserHistoryUserIdPartitioner;
@@ -55,7 +54,6 @@ public class UserHistoryToolMain extends Configured implements Tool {
 
         job.setPartitionerClass(UserHistoryUserIdPartitioner.class);
         job.setGroupingComparatorClass(UserHitoryKeyGroupComparator.class);
-        job.setSortComparatorClass(UserHitorySortComparator.class);
         
         job.setNumReduceTasks(2);
         return job.waitForCompletion(true) ? 0 : 1;

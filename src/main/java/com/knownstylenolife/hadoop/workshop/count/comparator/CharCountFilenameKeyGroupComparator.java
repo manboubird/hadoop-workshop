@@ -11,6 +11,7 @@ public class CharCountFilenameKeyGroupComparator extends WritableComparator {
 		super(CharCountMapOutputKeyWritable.class, true);
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public int compare(WritableComparable w1, WritableComparable w2) {
 		// for logging
