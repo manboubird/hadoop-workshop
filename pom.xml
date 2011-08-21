@@ -103,6 +103,11 @@
 							</mainClass>
 							<name>userHistory</name>
 						</program>
+						<program>
+							<mainClass>com.knownstylenolife.hadoop.workshop.count.tool.MapSideJoinToolMain
+							</mainClass>
+							<name>mapSideJoin</name>
+						</program>
 					</programs>
 				</configuration>
 			</plugin>
@@ -213,7 +218,6 @@
 			<artifactId>guava</artifactId>
 			<version>r09</version>
 			<type>jar</type>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>commons-io</groupId>
@@ -270,6 +274,16 @@
 			<version>0.20.2-CDH3B4</version>
 			<type>jar</type>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.derby</groupId>
+			<artifactId>derby</artifactId>
+			<version>10.8.1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>1.4</version>
 		</dependency>
 	</dependencies>
 	<repositories>

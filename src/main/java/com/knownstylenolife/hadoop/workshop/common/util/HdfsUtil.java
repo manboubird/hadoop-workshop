@@ -1,6 +1,7 @@
 package com.knownstylenolife.hadoop.workshop.common.util;
 
 import java.io.IOException;
+import java.net.URI;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -28,6 +29,14 @@ public class HdfsUtil {
 	
 	public static void setConfiguration(Configuration conf) {
 		HdfsUtil.conf = conf;
+	}
+	
+	public static FileSystem getFileSystem() throws IOException {
+		return FileSystem.get(HdfsUtil.getConfiguration());
+	}
+	
+	public static URI getUri() throws IOException {
+		return FileSystem.get(HdfsUtil.getConfiguration()).getUri();
 	}
 	
 	public static void copyFromLocalFile(String srcFilePath, String dstFilePath) throws IOException {
