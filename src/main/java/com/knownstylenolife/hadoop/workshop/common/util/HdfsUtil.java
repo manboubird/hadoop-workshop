@@ -32,15 +32,15 @@ public class HdfsUtil {
 	}
 	
 	public static FileSystem getFileSystem() throws IOException {
-		return FileSystem.get(HdfsUtil.getConfiguration());
+		return FileSystem.get(getConfiguration());
 	}
 	
 	public static URI getUri() throws IOException {
-		return FileSystem.get(HdfsUtil.getConfiguration()).getUri();
+		return FileSystem.get(getConfiguration()).getUri();
 	}
 	
 	public static void copyFromLocalFile(String srcFilePath, String dstFilePath) throws IOException {
-		FileSystem fs = FileSystem.get(HdfsUtil.getConfiguration());
+		FileSystem fs = FileSystem.get(getConfiguration());
 		Path src = new Path(srcFilePath);
 		Path dst = new Path(dstFilePath);
 		if(fs.exists(dst)){
@@ -52,7 +52,7 @@ public class HdfsUtil {
 	}
 	
 	public static void mkdirs(String dirPath) throws IOException {
-		FileSystem fs = FileSystem.get(HdfsUtil.getConfiguration());
+		FileSystem fs = FileSystem.get(getConfiguration());
 		Path path = new Path(dirPath);
 		if(fs.exists(path)){
 			LOG.info("The filename already exists. filename = " + path.toString());
@@ -63,19 +63,19 @@ public class HdfsUtil {
 	}
 	
 	public static Path makeQualifedPath(Path path) throws IOException {
-		return path.makeQualified(FileSystem.get(HdfsUtil.getConfiguration()));
+		return path.makeQualified(FileSystem.get(getConfiguration()));
 	}
 	
 	public static Path[] getPathes(Path dirPath) throws IOException {
-		return FileUtil.stat2Paths(FileSystem.get(HdfsUtil.getConfiguration()).listStatus(dirPath));
+		return FileUtil.stat2Paths(FileSystem.get(getConfiguration()).listStatus(dirPath));
 	}
 
 	public static Path[] getOutputFiles(Path outDir) throws IOException {
-		return FileUtil.stat2Paths(FileSystem.get(HdfsUtil.getConfiguration()).listStatus(outDir, new OutputFilesFilter()));
+		return FileUtil.stat2Paths(FileSystem.get(getConfiguration()).listStatus(outDir, new OutputFilesFilter()));
 	}
 	
 	public static void deleteDirectoryContents(String dirPath) throws IOException {
-		FileSystem fs = FileSystem.get(HdfsUtil.getConfiguration());
+		FileSystem fs = FileSystem.get(getConfiguration());
 		HdfsUtil.deleteDirectoryContents(fs, new Path(dirPath));
 	}
 	
@@ -93,7 +93,7 @@ public class HdfsUtil {
 	}
 	
 	public static void deleteRecursivelyIfExists(String path) throws IOException {
-		FileSystem fs = FileSystem.get(HdfsUtil.getConfiguration());
+		FileSystem fs = FileSystem.get(getConfiguration());
 		Path p = new Path(path);
 		if(fs.exists(p)) {
 			HdfsUtil.deleteRecursively(fs, p);
@@ -101,7 +101,7 @@ public class HdfsUtil {
 	}
 	
 	public static void deleteRecursively(String path) throws IOException {
-		FileSystem fs = FileSystem.get(HdfsUtil.getConfiguration());
+		FileSystem fs = FileSystem.get(getConfiguration());
 		HdfsUtil.deleteRecursively(fs, new Path(path));
 	}
 	
@@ -115,7 +115,7 @@ public class HdfsUtil {
 	}
 	
 	public static void deleteFileIfExists(String path) throws IOException {
-		FileSystem fs = FileSystem.get(HdfsUtil.getConfiguration());
+		FileSystem fs = FileSystem.get(getConfiguration());
 		Path dstPath = new Path(path);
 		if(fs.exists(dstPath)) {
 			fs.delete(dstPath, false);
@@ -123,7 +123,7 @@ public class HdfsUtil {
 	}
 	
 	public static void write(String contents, String path) throws IOException {
-		FileSystem fs = FileSystem.get(HdfsUtil.getConfiguration());
+		FileSystem fs = FileSystem.get(getConfiguration());
 		Path dstPath = new Path(path);
 		if(fs.exists(dstPath)) {
 			throw new RuntimeException("The filename is already exists. filename = " + dstPath.toString());

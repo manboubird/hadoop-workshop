@@ -108,6 +108,11 @@
 							</mainClass>
 							<name>mapSideJoin</name>
 						</program>
+						<program>
+							<mainClass>com.knownstylenolife.hadoop.workshop.count.tool.PerSplitSemiJoinToolMain
+							</mainClass>
+							<name>perSplitSemiJoin</name>
+						</program>
 					</programs>
 				</configuration>
 			</plugin>
@@ -284,6 +289,18 @@
 			<groupId>commons-dbcp</groupId>
 			<artifactId>commons-dbcp</artifactId>
 			<version>1.4</version>
+		</dependency>
+		<dependency>
+			<groupId>com.rapleaf.lightweight_trie</groupId>
+			<artifactId>lightweight_trie</artifactId>
+			<version>0.1.0</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>ant</groupId>
+			<artifactId>ant</artifactId>
+			<version>1.6.5</version>
 		</dependency>
 	</dependencies>
 	<repositories>
